@@ -14,7 +14,7 @@ export const getAll = async (req, res) => {
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({
-      message: "Ошибка при получении товаров",
+      message: "Error receiving products",
     });
   }
 };
@@ -28,14 +28,14 @@ export const getOne = async (req, res) => {
 
     if (!product) {
       return res.status(404).json({
-        message: "Товар не найден",
+        message: "Product not found",
       });
     }
 
     return res.status(200).json(product);
   } catch (error) {
     return res.status(500).json({
-      message: "Ошибка при получении товара",
+      message: "Product not found",
     });
   }
 };
@@ -45,7 +45,7 @@ export const create = async (req, res) => {
     const { name, price, imageUrl } = req.body;
     if (!name || !price || !imageUrl) {
       return res.status(400).json({
-        message: "Заполните обязательные поля",
+        message: "Please fill in the required fields",
       });
     }
     const product = await prisma.product.create({
@@ -57,7 +57,7 @@ export const create = async (req, res) => {
     return res.status(200).json(product);
   } catch (error) {
     res.status(500).json({
-      message: "Не удалось создать товар",
+      message: "Unable to create product",
     });
   }
 };
@@ -72,11 +72,11 @@ export const remove = async (req, res) => {
       },
     });
     return res.status(200).json({
-      message: "Товар удалился успешно",
+      message: "Product create success",
     });
   } catch (error) {
     return res.status(500).json({
-      message: "Не удалось удалить товар",
+      message: "Failed to delete item",
     });
   }
 };
@@ -91,11 +91,11 @@ export const edit = async (req, res) => {
       data: req.body,
     });
     res.status(200).json({
-      message: "Товар обновлен успешно",
+      message: "Product update product ",
     });
   } catch (error) {
     res.status(500).json({
-      message: "Не удалось обновить товар",
+      message: "Failed to update product",
     });
   }
 };

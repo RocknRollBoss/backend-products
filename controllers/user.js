@@ -5,7 +5,9 @@ export const resigster = async (req, res) => {
   try {
     const { email, password, name } = req.body;
     if (!email || !password || !name) {
-      return res.status(400).json({ message: "Заполните обязательные поля" });
+      return res
+        .status(400)
+        .json({ message: "Please fill in the required fields" });
     }
     const registeredUser = await prisma.user.findFirst({
       where: {
@@ -14,7 +16,7 @@ export const resigster = async (req, res) => {
     });
     if (registeredUser) {
       return res.status(400).json({
-        message: "Такой пользователь существует",
+        message: "Such user exists",
       });
     }
 
@@ -34,12 +36,12 @@ export const resigster = async (req, res) => {
       res.status(201).json({ ...user, token });
     } else {
       return res.status(400).json({
-        message: "Не удалось зарегисрироваться",
+        message: "Failed to register",
       });
     }
   } catch (error) {
     res.status(400).json({
-      message: "Не удалось зарегисрироваться",
+      message: "Failed to register",
     });
   }
 };
@@ -48,7 +50,9 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(400).json({ message: "Заполните обязательные поля" });
+      return res
+        .status(400)
+        .json({ message: "Please fill in the required fields" });
     }
 
     const user = await prisma.user.findFirst({
@@ -64,12 +68,12 @@ export const login = async (req, res) => {
       res.status(201).json({ ...user, token });
     } else {
       res.status(400).json({
-        message: "не удалось авторизироваться",
+        message: "Failed to login",
       });
     }
   } catch (error) {
     res.status(400).json({
-      message: "Не удалось авторизироваться",
+      message: "Failed to login",
     });
   }
 };
@@ -79,7 +83,7 @@ export const getMe = async (req, res) => {
     return res.status(200).json(req.user);
   } catch (error) {
     res.status(400).json({
-      message: "Не удалось войти",
+      message: "Failed to login",
     });
   }
 };
